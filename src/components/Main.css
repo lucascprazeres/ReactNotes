@@ -1,0 +1,14 @@
+.main {
+  background: linear-gradient(#4cb594, #327560);
+  padding: 30px;
+  margin: 50px auto;
+  max-width: 500px;
+  border-radius: 50px 20px;
+  box-shadow: 0, 0, 10px, rgba(0, 0, 0, 1);
+}
+
+.main h1 {
+  color: #fff;
+  text-align: center;
+  font-size: 40px;
+}

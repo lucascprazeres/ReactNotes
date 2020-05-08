@@ -1,0 +1,45 @@
+:root {
+  --task-text-color: #fff;
+  --edit-color: #f4fa3b;
+  --edit-color-lighter: #f8fb96;
+  --delete-color: #df5555;
+  --delete-color-lighter: #f58a8a;
+}
+
+.tasks {
+  margin-top: 30px;
+}
+
+.tasks li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--task-text-color);
+  font-size: 17px;
+  font-weight: bold;
+  padding: 3px 0 3px 5px;
+}
+
+.tasks li:hover {
+  transition: 0.1s;
+  background-color: #4fe4fb;
+  color: #144257;
+}
+
+.delete-icon, .edit-icon {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.tasks li:hover .edit-icon,
+.tasks li:hover .delete-icon {
+  color: #144257;
+}
+
+.edit-icon {
+  color: var(--edit-color);
+}
+
+.delete-icon {
+  color: var(--delete-color);
+}

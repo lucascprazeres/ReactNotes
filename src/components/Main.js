@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
-import { FaPlus, FaReact } from 'react-icons/fa';
+import {
+  FaPlus, FaReact, FaEdit, FaWindowClose,
+} from 'react-icons/fa';
+
 import './Main.css';
+import './Main.form.css';
+import './Main.ul.css';
 
 class Main extends Component {
+  static formatAndReturnTask(task) {
+    return task.split(' ').join('-').toLowerCase();
+  }
+
   state = {
     newTask: '',
+    tasks: ['To Study English', 'To do yoga', 'To code'],
   };
 
   handleInputChange = (e) => {
@@ -14,12 +24,12 @@ class Main extends Component {
   }
 
   render() {
-    const { newTask } = this.state;
+    const { newTask, tasks } = this.state;
 
     return (
       <div className="main">
         <h1>
-          <FaReact />
+          <FaReact className="react-icon" />
           ReactNotes
         </h1>
 
@@ -31,6 +41,18 @@ class Main extends Component {
           />
           <button type="submit"><FaPlus /></button>
         </form>
+
+        <ul className="tasks">
+          {tasks.map((task) => (
+            <li key={Main.formatAndReturnTask(task)}>
+              {task}
+              <div>
+                <FaEdit className="edit-icon" />
+                <FaWindowClose className="delete-icon" />
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

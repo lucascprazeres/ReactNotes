@@ -1,0 +1,38 @@
+:root {
+  --btn-color: #0794a7;
+  --btn-hover-color: #005762;
+}
+
+
+.form {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form input[type="text"] {
+  height: 35px;
+  padding: 0 20px;
+  font-size: 18px;
+  min-width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px;
+}
+
+.form button[type="submit"] {
+  border: none;
+  height: 35px;
+  width: 40px;
+  border-radius: 0 10px 10px 0;
+  font-size: 20px;
+  color: #fff;
+  background: var(--btn-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form button[type="submit"]:hover {
+  background: var(--btn-hover-color);
+}

@@ -13,18 +13,81 @@ class Main extends Component {
   }
 
   state = {
-    newTask: '',
-    tasks: ['To Study English', 'To do yoga', 'To code'],
+    inputValue: '',
+    tasks: [],
+    clearInput: false,
+    index: -1,
   };
 
   handleInputChange = (e) => {
     this.setState({
-      newTask: e.target.value,
+      inputValue: e.target.value,
     });
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { index } = this.state;
+    if (index === -1) {
+      return this.createTaskFromInput();
+    }
+    this.reinsertTask();
+  }
+
+  handleEdit = (e, index) => {
+    const { tasks } = this.state;
+
+    const selectedTask = tasks.splice(index, 1).pop();
+
+    this.setState({ inputValue: selectedTask, index });
+  }
+
+  handleDelete = (e, index) => {
+    const { tasks } = this.state;
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(index, 1);
+    this.setState({ tasks: updatedTasks });
+  }
+
+  createTaskFromInput = () => {
+    const { tasks } = this.state;
+    let { inputValue } = this.state;
+    inputValue = inputValue.trim();
+
+    if (tasks.indexOf(inputValue) !== -1) {
+      this.setState({
+        inputValue: 'This task is already saved!',
+        clearInput: true,
+      });
+      return;
+    }
+    const updatedTasks = [...tasks, inputValue];
+    this.setState({
+      tasks: updatedTasks,
+      inputValue: '',
+    });
+  }
+
+  reinsertTask = () => {
+    const { index, inputValue, tasks } = this.state;
+
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(index, 0, inputValue);
+    this.setState({ tasks: updatedTasks, index: -1 });
+  }
+
+  clearInput = () => {
+    const { clearInput } = this.state;
+    if (clearInput) {
+      this.setState({
+        inputValue: '',
+        clearInput: false,
+      });
+    }
+  }
+
   render() {
-    const { newTask, tasks } = this.state;
+    const { inputValue, tasks } = this.state;
 
     return (
       <div className="main">
@@ -33,23 +96,30 @@ class Main extends Component {
           ReactNotes
         </h1>
 
-        <form className="form">
+        <form className="form" onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleInputChange}
+            onFocus={this.clearInput}
             type="text"
-            value={newTask}
+            value={inputValue}
           />
           <button type="submit"><FaPlus /></button>
         </form>
 
         <ul className="tasks">
-          {tasks.map((task) => (
+          {tasks.map((task, index) => (
             <li key={Main.formatAndReturnTask(task)}>
               {task}
-              <div>
-                <FaEdit className="edit-icon" />
-                <FaWindowClose className="delete-icon" />
-              </div>
+              <span>
+                <FaEdit
+                  className="edit-icon"
+                  onClick={(e) => this.handleEdit(e, index)}
+                />
+                <FaWindowClose
+                  className="delete-icon"
+                  onClick={(e) => this.handleDelete(e, index)}
+                />
+              </span>
             </li>
           ))}
         </ul>

@@ -33,6 +33,6 @@
   justify-content: center;
 }
 
-form button[type="submit"]:hover {
+.form button[type="submit"]:hover {
   background: var(--btn-hover-color);
 }

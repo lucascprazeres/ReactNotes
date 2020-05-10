@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import {
-  FaPlus, FaReact, FaEdit, FaWindowClose,
-} from 'react-icons/fa';
+import { FaReact } from 'react-icons/fa';
+import Form from './Form';
+import Tasks from './Tasks';
 
 import './Main.css';
-import './Main.form.css';
-import './Main.ul.css';
 
 class Main extends Component {
-  static formatAndReturnTask(task) {
-    return task.split(' ').join('-').toLowerCase();
-  }
-
   state = {
     inputValue: '',
     tasks: [],
@@ -112,33 +106,18 @@ class Main extends Component {
           ReactNotes
         </h1>
 
-        <form className="form" onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleInputChange}
-            onFocus={this.clearInput}
-            type="text"
-            value={inputValue}
-          />
-          <button type="submit"><FaPlus /></button>
-        </form>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleInputChange={this.handleInputChange}
+          clearInput={this.clearInput}
+          inputValue={inputValue}
+        />
 
-        <ul className="tasks">
-          {tasks.map((task, index) => (
-            <li key={Main.formatAndReturnTask(task)}>
-              {task}
-              <span>
-                <FaEdit
-                  className="edit-icon"
-                  onClick={(e) => this.handleEdit(e, index)}
-                />
-                <FaWindowClose
-                  className="delete-icon"
-                  onClick={(e) => this.handleDelete(e, index)}
-                />
-              </span>
-            </li>
-          ))}
-        </ul>
+        <Tasks
+          tasks={tasks}
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+        />
       </div>
     );
   }
